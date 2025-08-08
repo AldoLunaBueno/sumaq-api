@@ -20,4 +20,5 @@ jobs:
             docker build -t fastapi-app .
             docker stop fastapi-container || true
             docker rm fastapi-container || true
-            docker run -d -p 8000:8000 --name fastapi-container fastapi-app
+            docker run -d -p 80:8000 --name fastapi-container fastapi-app
+            
