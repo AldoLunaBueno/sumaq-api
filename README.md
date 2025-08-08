@@ -1,1 +1,1 @@
-# sumaq-api
+# Sumaq API
