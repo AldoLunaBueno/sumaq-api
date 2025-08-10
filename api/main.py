@@ -4,6 +4,7 @@ from typing import List
 import datetime
 import boto3
 import os
+from decimal import Decimal
 
 # CONFIG
 AWS_REGION = os.getenv("AWS_REGION", "us-east-1")
@@ -45,15 +46,22 @@ async def index():
 
 @app.post("/data")
 async def receive_data(data: SensorData):
-    # Si no envían timestamp, lo generamos
     if not data.timestamp:
         data.timestamp = datetime.datetime.utcnow().isoformat()
 
-    # Guardar en DynamoDB
-    table.put_item(Item=data.dict())
+    # Convertir floats a Decimal
+    item = {
+        k: Decimal(str(v)) if isinstance(v, float) else v
+        for k, v in data.dict().items()
+    }
 
-    # Enviar a clientes WebSocket en tiempo real
+    # Guardar en DynamoDB
+    table.put_item(Item=item)
+
+    # Enviar a WebSocket
     await broadcast(data.dict())
+
+    print(f"Datos recibidos: {item}")  # Para verlos en logs
 
     return {"status": "ok", "data": data.dict()}
 
