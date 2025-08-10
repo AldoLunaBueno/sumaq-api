@@ -1,6 +1,6 @@
 # Sumaq API
 
-## Pasos para lograr la conexión SSH desde Windows con el servidor EC2 y poder aprovisionarlo
+## Pasos para lograr la conexión SSH desde Windows con el servidor EC2
 
 Primero asegurar la privacidad de la llave privada:
 
