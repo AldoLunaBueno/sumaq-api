@@ -23,4 +23,7 @@ En una consola SSH:
 
 ```bash
 sudo yum install -y git docker python
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker $USER
 ```
