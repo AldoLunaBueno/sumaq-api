@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import datetime
 import boto3
@@ -20,6 +21,17 @@ app = FastAPI(
     title="Sumaq Tree API",
     description="API que recolecta datos de sensores y los expone a una aplicación cliente",
     version="1.0"
+)
+
+# ========================
+# CORS
+# ========================
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://tarpuqkuna.lat"],  # dominio del frontend
+    allow_credentials=True,
+    allow_methods=["*"],  # permite todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],  # permite todos los headers
 )
 
 # ========================
